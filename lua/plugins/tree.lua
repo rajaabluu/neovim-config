@@ -10,26 +10,46 @@ local M = {
 	},
 	config = function()
 		require("nvim-tree").setup({
+			-- diagnostics = {
+			-- 	enable = true,
+			-- 	show_on_dirs = true,
+			-- 	show_on_open_dirs = true,
+			-- 	debounce_delay = 50,
+			-- 	severity = {
+			-- 		min = vim.diagnostic.severity.HINT,
+			-- 		max = vim.diagnostic.severity.ERROR,
+			-- 	},
+			-- 	icons = {
+			-- 		hint = " ",
+			-- 		info = "",
+			-- 		warning = "",
+			-- 		error = "",
+			-- 	},
+			-- },
 			view = {
 				signcolumn = "no",
 				width = {
-					padding = 1,
 					max = 30,
+					padding = 3,
 				},
 			},
 			renderer = {
 				root_folder_label = ":~:s",
 				icons = {
+					show = {
+						diagnostics = true,
+					},
 					git_placement = "right_align",
 					hidden_placement = "right_align",
+					diagnostics_placement = "right_align",
 					glyphs = {
 						git = {
 							unstaged = "",
-							staged = "✓",
+							staged = "",
 							unmerged = "",
 							renamed = "r",
 							untracked = "u",
-							deleted = "",
+							deleted = "",
 							ignored = "◌",
 						},
 					},
@@ -64,4 +84,5 @@ local M = {
 		})
 	end,
 }
+
 return M

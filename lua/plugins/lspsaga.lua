@@ -1,6 +1,7 @@
 local M = {
 	"nvimdev/lspsaga.nvim",
 	lazy = false,
+	event = { "LspAttach" },
 }
 
 M.config = function()

@@ -8,48 +8,57 @@ local M = {
 
 M.config = function()
 	local lspconfig = require("lspconfig")
-	local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+	local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 	local on_attach = require("utils.lsp").on_attach
-	local cmp = require("cmp_nvim_lsp")
-	local capabilites = cmp.default_capabilities()
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	for type, icon in pairs(signs) do
 		local hl = "DiagnosticSign" .. type
-		vim.fn.sign_define(h, { text = icon, hl = hl, numhl = "" })
+		vim.fn.sign_define(hl, { text = icon, hl = hl, numhl = "" })
 	end
 
 	vim.diagnostic.config({
 		virtual_text = false,
 	})
+
 	-- Setup LSP
 	lspconfig.tailwindcss.setup({
-		on_attach = on_attach,
-		capabilites = capabilites,
+		capabilities = capabilities,
 		cmd = { "tailwindcss-language-server.cmd", "--stdio" },
+		root_dir = lspconfig.util.root_pattern(
+			"tailwind.config.js",
+			"tailwind.config.cjs",
+			"tailwind.config.mjs",
+			"tailwind.config.ts",
+			"postcss.config.js",
+			"postcss.config.cjs",
+			"postcss.config.mjs",
+			"postcss.config.ts"
+		),
 	})
 	lspconfig.ts_ls.setup({
 		on_attach = on_attach,
-		capabilites = capabilites,
+		capabilities = capabilities,
 		cmd = { "typescript-language-server.cmd", "--stdio" },
 	})
 	lspconfig.emmet_ls.setup({
 		on_attach = on_attach,
-		capabilites = capabilites,
+		capabilities = capabilities,
 		cmd = { "emmet-language-server.cmd", "--stdio" },
 	})
 	lspconfig.html.setup({
 		on_attach = on_attach,
-		capabilites = capabilites,
+		capabilities = capabilities,
 		cmd = { "vscode-html-language-server.cmd", "--stdio" },
 	})
 	lspconfig.eslint.setup({
 		on_attach = on_attach,
-		capabilites = capabilites,
+		capabilities = capabilities,
 		cmd = { "eslint_d.cmd", "--stdio" },
 	})
-	lspconfig.gopls.setup({ on_attach = on_attach, capabilites = capabilites, cmd = { "gopls.cmd" } })
+	lspconfig.gopls.setup({ on_attach = on_attach, capabilities = capabilities, cmd = { "gopls.cmd" } })
 	lspconfig.lua_ls.setup({
 		on_attach = on_attach,
-		capabilites = capabilites,
+		capabilities = capabilities,
 		cmd = { "lua-language-server.cmd", "--stdio" },
 	})
 end

@@ -8,21 +8,52 @@ local M = {
 		"saadparwaiz1/cmp_luasnip",
 		"L3MON4D3/LuaSnip",
 	},
-	lazy = false,
+	event = { "InsertEnter", "CmdlineEnter" },
 }
 
 M.config = function()
-	local function match_at_cursor(pattern)
-		local col = vim.api.nvim_win_get_cursor(0)[2]
-		local text = vim.api.nvim_get_current_line():sub(col, col - 1 + pattern:len())
-		return text == pattern
-	end
 	local cmp = require("cmp")
+	require("luasnip.loaders.from_vscode").lazy_load()
+	local kinds = {
+		Text = "",
+		Method = "",
+		Function = "",
+		Constructor = "",
+		Field = "",
+		Variable = "",
+		Class = "",
+		Interface = "",
+		Module = "",
+		Property = "",
+		Unit = "",
+		Value = "",
+		Enum = "",
+		Keyword = "",
+		Snippet = "",
+		Color = "",
+		File = "",
+		Reference = "",
+		Folder = "",
+		EnumMember = "",
+		Constant = "",
+		Struct = "",
+		Event = "",
+		Operator = "",
+		TypeParameter = "",
+	}
 	cmp.setup({
 		snippet = {
 			expand = function(args)
 				require("luasnip").lsp_expand(args.body)
 			end,
+		},
+		formatting = {
+			fields = { "abbr", "menu", "kind" },
+			format = function(_, vim_item)
+				vim_item.kind = " " .. kinds[vim_item.kind] .. " "
+				return vim_item
+			end,
+			expandable_indicator = false,
 		},
 		completion = {
 			completeopt = "menu,menuone,noinsert",
@@ -42,24 +73,23 @@ M.config = function()
 			end,
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.abort(),
-			-- ["<CR>"] = cmp.mapping.confirm({ select = true }),
-			["<CR>"] = cmp.mapping(function(fallback)
-				if not cmp.confirm({ select = true }) then
-					fallback()
-					if match_at_cursor("></") then
-						local keys = vim.api.nvim_replace_termcodes("<c-o>O", true, true, true)
-						vim.api.nvim_feedkeys(keys, "n", false)
-					end
-				end
-			end),
-			-- ["<Tab>"] = cmp.mapping.confirm({ select = true }),
+			["<CR>"] = cmp.mapping.confirm({ select = true }),
+			-- ["<CR>"] = cmp.mapping(function(fallback)
+			-- 	if not cmp.confirm({ select = true }) then
+			-- 		fallback()
+			-- 		if match_at_cursor("></") then
+			-- 			local keys = vim.api.nvim_replace_termcodes("<c-o>O", true, true, true)
+			-- 			vim.api.nvim_feedkeys(keys, "n", false)
+			-- 		end
+			-- 	end
+			-- end),
+			["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		}),
 		sources = cmp.config.sources({
 			{ name = "nvim_lsp" },
 			{ name = "luasnip" },
-			{ name = "path" },
-		}, {
 			{ name = "buffer" },
+			{ name = "path" },
 		}),
 	})
 	-- Cmdline Completion
