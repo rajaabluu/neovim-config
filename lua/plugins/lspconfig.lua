@@ -5,10 +5,9 @@ local M = {
 		"williamboman/mason.nvim",
 	},
 }
-
 M.config = function()
 	local lspconfig = require("lspconfig")
-	local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+	local signs = { Error = "", Warn = "", Hint = " ", Info = "" }
 	local on_attach = require("utils.lsp").on_attach
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 	for type, icon in pairs(signs) do
@@ -41,14 +40,25 @@ M.config = function()
 		cmd = { "typescript-language-server.cmd", "--stdio" },
 	})
 	lspconfig.emmet_ls.setup({
-		on_attach = on_attach,
 		capabilities = capabilities,
 		cmd = { "emmet-language-server.cmd", "--stdio" },
+		filetypes = {
+			"blade",
+			"html",
+			"css",
+			"typescriptreact",
+			"javascriptreact",
+		},
 	})
 	lspconfig.html.setup({
 		on_attach = on_attach,
 		capabilities = capabilities,
 		cmd = { "vscode-html-language-server.cmd", "--stdio" },
+	})
+	lspconfig.intelephense.setup({
+		on_attach = on_attach,
+		capabilities = capabilities,
+		cmd = { "intelephense.cmd", "--stdio" },
 	})
 	lspconfig.eslint.setup({
 		on_attach = on_attach,

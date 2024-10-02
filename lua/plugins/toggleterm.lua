@@ -3,28 +3,23 @@ M.config = function()
 	require("toggleterm").setup({
 		shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
 		open_mapping = [[<C-\>]],
-		direction = "horizontal",
+		direction = "float",
 		float_opts = {
 			border = "rounded",
 		},
-		on_open = function(terminal)
-			local api = require("nvim-tree.api")
-			local nvimtree_view = require("nvim-tree.view")
-			if nvimtree_view.is_visible() and terminal.direction == "horizontal" then
-				local nvimtree_width = vim.fn.winwidth(nvimtree_view.get_winnr())
-				api.tree.toggle()
-				nvimtree_view.View.width = nvimtree_width
-				api.tree.toggle(false, true)
-				vim.cmd([[startinsert!]])
-			end
+		highlights = {
+			FloatBorder = {
+				guifg = "#82aaff",
+			},
+		},
+		on_open = function()
+			vim.cmd([[startinsert!]])
 		end,
 	})
 end
 
 local opts = { noremap = true, silent = true }
--- Table keys untuk key mapping terminal
 M.keys = {
-	-- Keymaps untuk terminal mode
 	{ "<esc>", [[<C-\><C-n>]], opts, mode = "t" },
 	{ "jk", [[<C-\><C-n>]], opts, mode = "t" },
 	{ "<C-h>", [[<C-\><C-n><C-W>h]], opts, mode = "t" },

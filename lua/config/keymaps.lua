@@ -24,7 +24,7 @@ keymap.set("v", ">", ">gv")
 -- Buffer
 keymap.set("n", "<S-h>", "<cmd>BufferLineCyclePrev<CR>", opts)
 keymap.set("n", "<S-l>", "<cmd>BufferLineCycleNext<CR>", opts)
-keymap.set("n", "]b", "<cmd><cmd>BufferLineCyclePrev<CR>", opts)
+keymap.set("n", "]b", "<cmd>BufferLineCyclePrev<CR>", opts)
 keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<CR>", opts)
 keymap.set("n", "[B", "<cmd>BufferLineMovePrev<CR>", opts)
 keymap.set("n", "]B", "<cmd>BufferLineMoveNext<CR>", opts)

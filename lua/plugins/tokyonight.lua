@@ -9,10 +9,11 @@ M.config = function()
 		transparent = true,
 		styles = {
 			sidebars = "transparent",
+			-- keywords = { italic = false },
 			floats = "transparent",
 		},
 	})
-	vim.cmd([[colorscheme tokyonight]])
+	vim.cmd([[colorscheme tokyonight-night]])
 end
 
 return M

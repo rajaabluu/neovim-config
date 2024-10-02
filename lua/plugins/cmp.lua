@@ -23,7 +23,7 @@ M.config = function()
 		Variable = "",
 		Class = "",
 		Interface = "",
-		Module = "",
+		Module = "M",
 		Property = "",
 		Unit = "",
 		Value = "",
@@ -74,15 +74,6 @@ M.config = function()
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.abort(),
 			["<CR>"] = cmp.mapping.confirm({ select = true }),
-			-- ["<CR>"] = cmp.mapping(function(fallback)
-			-- 	if not cmp.confirm({ select = true }) then
-			-- 		fallback()
-			-- 		if match_at_cursor("></") then
-			-- 			local keys = vim.api.nvim_replace_termcodes("<c-o>O", true, true, true)
-			-- 			vim.api.nvim_feedkeys(keys, "n", false)
-			-- 		end
-			-- 	end
-			-- end),
 			["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		}),
 		sources = cmp.config.sources({

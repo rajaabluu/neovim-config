@@ -17,6 +17,7 @@ _  /|  / /  __/ /_/ /_ |/ /_  / _  / / / / /
 
 	local opts = {
 		theme = "doom",
+
 		hide = {
 			-- this is taken care of by lualine
 			-- enabling this messes up the actual laststatus setting after loading a file
@@ -31,7 +32,7 @@ _  /|  / /  __/ /_/ /_ |/ /_  / _  / / / / /
           { action = 'Telescope oldfiles',                 desc = " Recent Files",    icon = " ", key = "r" },
           { action = 'Telescope live_grep',                desc = " Find Text",       icon = " ", key = "g" },
           -- { action = 'lua require("persistence").load()',              desc = " Restore Session", icon = " ", key = "s" },
-          { action = "Lazy",                                           desc = " Lazy",            icon = "󰒲 ", key = "l" },
+        { action = "Lazy",                                           desc = " Lazy",            icon = "󰒲 ", key = "l" },
           { action = function() vim.api.nvim_input("<cmd>qa<cr>") end, desc = " Quit",            icon = " ", key = "q" },
         },
 			footer = function()

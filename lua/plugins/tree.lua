@@ -1,88 +1,52 @@
 local M = {
-	"nvim-tree/nvim-tree.lua",
-	version = "*",
-	lazy = false,
+	"nvim-neo-tree/neo-tree.nvim",
+	branch = "v3.x",
 	dependencies = {
-		"nvim-tree/nvim-web-devicons",
+		"nvim-lua/plenary.nvim",
+		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+		"MunifTanjim/nui.nvim",
+		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 	},
 	keys = {
-		{ "<leader>e", "<cmd>NvimTreeToggle<CR>", mode = "n", silent = true, noremap = true },
+		{ "<leader>e", "<cmd>Neotree toggle<CR>", mode = "n" },
 	},
-	config = function()
-		require("nvim-tree").setup({
-			-- diagnostics = {
-			-- 	enable = true,
-			-- 	show_on_dirs = true,
-			-- 	show_on_open_dirs = true,
-			-- 	debounce_delay = 50,
-			-- 	severity = {
-			-- 		min = vim.diagnostic.severity.HINT,
-			-- 		max = vim.diagnostic.severity.ERROR,
-			-- 	},
-			-- 	icons = {
-			-- 		hint = " ",
-			-- 		info = "",
-			-- 		warning = "",
-			-- 		error = "",
-			-- 	},
-			-- },
-			view = {
-				signcolumn = "no",
-				width = {
-					max = 30,
-					padding = 3,
-				},
-			},
-			renderer = {
-				root_folder_label = ":~:s",
-				icons = {
-					show = {
-						diagnostics = true,
-					},
-					git_placement = "right_align",
-					hidden_placement = "right_align",
-					diagnostics_placement = "right_align",
-					glyphs = {
-						git = {
-							unstaged = "",
-							staged = "",
-							unmerged = "",
-							renamed = "r",
-							untracked = "u",
-							deleted = "",
-							ignored = "◌",
-						},
-					},
-				},
-				indent_markers = {
-					enable = true,
-					inline_arrows = true,
-					icons = {
-						corner = "└",
-						edge = "│",
-						item = "│",
-						bottom = "─",
-						none = " ",
-					},
-				},
-			},
-		})
-		vim.o.confirm = true
-		vim.api.nvim_create_autocmd("BufEnter", {
-			group = vim.api.nvim_create_augroup("NvimTreeClose", { clear = true }),
-			pattern = "NvimTree_*",
-			callback = function()
-				local layout = vim.api.nvim_call_function("winlayout", {})
-				if
-					layout[1] == "leaf"
-					and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
-					and layout[3] == nil
-				then
-					vim.cmd("confirm quit")
-				end
-			end,
-		})
-	end,
 }
+
+M.config = function()
+	require("neo-tree").setup({
+		close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
+		popup_border_style = "rounded",
+		enable_git_status = true,
+		enable_diagnostics = false,
+		default_component_configs = {
+			icon = {
+				folder_empty = "",
+			},
+			modified = {
+				symbol = "",
+				highlight = "NeoTreeModified",
+			},
+			git_status = {
+				symbols = {
+					-- Change type
+					added = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
+					modified = "", -- or "", but this is redundant info if you use git_status_colors on the name
+					deleted = "✖", -- this can only be used in the git_status source
+					renamed = "󰁕", -- this can only be used in the git_status source
+					-- Status type
+					untracked = "",
+					ignored = "",
+					unstaged = "󰄱",
+					staged = "",
+					conflict = "",
+				},
+			},
+		},
+		window = {
+			position = "left",
+			width = 30,
+		},
+	})
+end
 
 return M

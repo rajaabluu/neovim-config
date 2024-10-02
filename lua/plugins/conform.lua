@@ -11,11 +11,12 @@ M.config = function()
 			typescript = { "prettierd" },
 			javascriptreact = { "prettierd" },
 			typescriptreact = { "prettierd" },
+			blade = { "blade-formatter" },
 			go = { "gofumpt" },
 			lua = { "stylua" },
 		},
 		format_on_save = {
-			timeout_ms = 500,
+			timeout_ms = 1000,
 			lsp_format = "fallback",
 		},
 	})

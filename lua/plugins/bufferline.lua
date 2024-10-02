@@ -9,16 +9,22 @@ M.config = function()
 	local bufferline = require("bufferline")
 	bufferline.setup({
 		options = {
+			-- diagnostics = "nvim_lsp",
+			-- diagnostics_indicator = function(count, level)
+			-- 	local icon = level:match("error") and "" or ""
+			-- 	return "" .. icon .. " " .. count
+			-- end,
+			style_preset = { bufferline.style_preset.no_bold },
 			offsets = {
 				{
-					filetype = "NvimTree",
-					text = "Explorer",
+					filetype = "neo-tree",
+					text = " neotree",
 					highlight = "Directory",
 					text_align = "left",
 					separator = true,
 				},
 			},
-			close_command = "Bdelete",
+			close_command = "Bdelete! %d",
 			highlights = {
 				buffer_selected = {
 					bold = false,

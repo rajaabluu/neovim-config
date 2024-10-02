@@ -10,12 +10,8 @@ M.config = function()
 			enable = false,
 		},
 		symbol_in_winbar = {
-			folder_level = 1,
-		},
-		rename = {
-			keys = {
-				quit = "<Esc>",
-			},
+			folder_level = 0,
+			separator = "   ",
 		},
 	})
 end
