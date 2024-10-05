@@ -13,7 +13,7 @@ M.config = function()
 			floats = "transparent",
 		},
 	})
-	vim.cmd([[colorscheme tokyonight-night]])
+	vim.cmd([[colorscheme tokyonight]])
 end
 
 return M

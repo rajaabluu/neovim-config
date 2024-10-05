@@ -6,9 +6,7 @@ local M = {
 
 M.config = function()
 	require("lspsaga").setup({
-		lightbulb = {
-			enable = false,
-		},
+		lightbulb = { enable = false },
 		symbol_in_winbar = {
 			folder_level = 0,
 			separator = "   ",

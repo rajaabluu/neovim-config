@@ -18,7 +18,7 @@ M.config = function()
 			offsets = {
 				{
 					filetype = "neo-tree",
-					text = " neotree",
+					text = "󰔱 neotree",
 					highlight = "Directory",
 					text_align = "left",
 					separator = true,

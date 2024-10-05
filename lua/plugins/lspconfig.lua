@@ -61,9 +61,14 @@ M.config = function()
 		cmd = { "intelephense.cmd", "--stdio" },
 	})
 	lspconfig.eslint.setup({
-		on_attach = on_attach,
 		capabilities = capabilities,
-		cmd = { "eslint_d.cmd", "--stdio" },
+		-- on_attach = function(client, bufnr)
+		-- 	vim.api.nvim_create_autocmd("BufWritePre", {
+		-- 		buffer = bufnr,
+		-- 		command = "EslintFixAll",
+		-- 	})
+		-- end,
+		cmd = { "vscode-eslint-language-server.cmd", "--stdio" },
 	})
 	lspconfig.gopls.setup({ on_attach = on_attach, capabilities = capabilities, cmd = { "gopls.cmd" } })
 	lspconfig.lua_ls.setup({
